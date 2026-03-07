@@ -5,3 +5,7 @@ config/matugen/generated/
 
 # caches
 **/.cache/
+
+# AGENTS.md
+AGENTS.md
+CLAUDE.md

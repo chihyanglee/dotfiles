@@ -11,6 +11,11 @@ if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
 fi
 
+# mise
+if command -v mise >/dev/null 2>&1; then
+  eval "$(mise activate zsh)"
+fi
+
 # fzf
 if command -v fzf >/dev/null 2>&1; then
   source /usr/share/fzf/key-bindings.zsh

@@ -4,6 +4,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 export ZDOTDIR="$HOME/.config/zsh"
+export PATH="$HOME/.local/bin:$PATH"
 ZSH_PLUGIN_DIR="$HOME/.local/share/zsh"
 
 # Keep startup silent and predictable
@@ -29,3 +30,4 @@ fi
 
 # p10k
 [[ -f "$ZDOTDIR/p10k.zsh" ]] && source "$ZDOTDIR/p10k.zsh"
+
