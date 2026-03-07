@@ -9,22 +9,15 @@ if [[ ! -d "$WALLPAPER_DIR" ]]; then
   exit 1
 fi
 
-if [[ ! -x "$APPLY_SCRIPT" ]]; then
-  echo "Wallpaper apply script not found or not executable: $APPLY_SCRIPT"
-  exit 1
-fi
+tmpfile="$(mktemp)"
+trap 'rm -f "$tmpfile"' EXIT
 
-selection="$(
-  find "$WALLPAPER_DIR" -type f \
-    \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) \
-    | sort \
-    | sed "s|$WALLPAPER_DIR/||" \
-    | fuzzel --dmenu --prompt='Wallpaper> '
-)"
+yazi --chooser-file="$tmpfile" "$WALLPAPER_DIR"
+
+selection="$(cat "$tmpfile")"
 
 if [[ -z "${selection:-}" ]]; then
   exit 0
 fi
 
-"$APPLY_SCRIPT" "$WALLPAPER_DIR/$selection"
-
+nohup "$APPLY_SCRIPT" "$selection" >/dev/null 2>&1 &

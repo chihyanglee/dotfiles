@@ -10,6 +10,7 @@ Personal Arch Linux desktop configuration centered around Hyprland.
 | **EWW** | Top bar and widgets |
 | **Kitty + tmux + zsh** | Terminal (Powerlevel10k prompt) |
 | **Matugen + awww** | Wallpaper-driven dynamic theming |
+| **Yazi** | TUI file manager |
 | **Fuzzel** | App launcher / wallpaper picker |
 | **Mako** | Notifications |
 | **mise** | Dev tool version manager (node, python, go, etc.) |
@@ -33,6 +34,7 @@ config/
 ├── scripts/       helper scripts (dark mode, etc.)
 ├── tmux/          terminal multiplexer
 ├── vim/           editor
+├── yazi/          TUI file manager
 └── zsh/           shell (.zshrc, aliases, plugins, p10k)
 ```
 
@@ -75,6 +77,7 @@ Install these packages before running the setup script.
 | wireplumber | Audio control via `wpctl` |
 | networkmanager | Network widgets via `nmcli` |
 | jq | JSON parsing in EWW scripts |
+| yazi | TUI file manager |
 | fzf | Fuzzy finder for shell |
 | zoxide | Smart `cd` replacement |
 | mise | Dev tool version manager |
@@ -87,7 +90,7 @@ Install these packages before running the setup script.
 git clone <repo-url> ~/dotfiles
 
 # Symlink all configs
-ln -sfn ~/dotfiles/config/{hypr,kitty,fuzzel,mako,eww,awww,matugen,mise,tmux,zsh,vim,gtk-3.0,gtk-4.0,scripts} ~/.config/
+ln -sfn ~/dotfiles/config/{hypr,kitty,fuzzel,mako,eww,awww,matugen,mise,tmux,zsh,vim,yazi,gtk-3.0,gtk-4.0,scripts} ~/.config/
 
 # Zsh entrypoint (delegates to the repo)
 cat > ~/.zshrc <<'EOF'
