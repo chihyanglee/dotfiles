@@ -37,19 +37,15 @@
 }
 
 .ws-dot {
-  opacity: 0.5;
+  color: $bar-dim;
 }
 
 .ws-dot-active {
-  opacity: 1.0;
+  color: $bar-accent;
 }
 
 .center-module {
   padding: 0 16px;
-}
-
-.clock-icon {
-  font-size: 13px;
 }
 
 .clock-label {
@@ -62,16 +58,9 @@
 
 .sys-icon {
   font-size: 13px;
+  color: $bar-accent;
 }
 
 .sys-label {
   font-weight: 600;
-}
-
-.power-button {
-  padding: 0 2px;
-}
-
-.power-button:hover {
-  color: mix($bar-fg, red, 50%);
 }

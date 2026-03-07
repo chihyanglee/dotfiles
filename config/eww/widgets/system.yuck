@@ -26,6 +26,9 @@
 (defpoll ac-status :interval "5s"
   "~/.config/eww/scripts/ac-status.sh")
 
+(defpoll volume-level :interval "1s"
+  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)\"%\"}'")
+
 (defpoll bluetooth-status :interval "5s"
   "~/.config/eww/scripts/bluetooth.sh")
 
@@ -58,10 +61,11 @@
     (label :class "sys-icon" :text {ac-status == "ON" ? "󰂄" : "󰁹"})
     (label :class "sys-label" :text battery-level)))
 
+(defwidget volume-widget []
+  (box :spacing 2
+    (label :class "sys-icon" :text {volume-level == "0%" ? "󰝟" : "󰕾"})
+    (label :class "sys-label" :text volume-level)))
+
 (defwidget bluetooth-widget []
   (box :spacing 2
     (label :class "sys-icon" :text {bluetooth-status == "on" ? "󰂯" : "󰂲"})))
-
-(defwidget power-widget []
-  (button :class "power-button" :onclick "uwsm app -- wlogout &"
-    (label :class "sys-icon" :text "󰐥")))

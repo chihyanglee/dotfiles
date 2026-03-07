@@ -24,6 +24,7 @@
         (temp-widget)
         (mem-widget)
         (wifi-widget)
+        (volume-widget)
         (battery-widget)
         ;; (bluetooth-widget)
-        (power-widget)))))
+        ))))
