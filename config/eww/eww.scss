@@ -1,12 +1,61 @@
 @import "./colors.scss";
 
+* {
+  all: unset;
+  font-family: "FiraCode Nerd Font";
+  font-size: 11px;
+  color: $bar-fg;
+}
+
 .bar {
-  background: rgba(20, 20, 20, 0.85);
-  color: #e6e6e6;
-  border-radius: 10px;
+  background: transparentize($bar-bg, 1.00);
+  border: 1px solid transparentize($bar-border, 1.00);
+  border-radius: 18px;
   padding: 6px 10px;
 }
 
-.left, .center, .right {
+.module {
+  background: transparentize($bar-bg, 0.80);
+  border: 1px solid transparentize($bar-border, 0.80);
+  border-radius: 14px;
   padding: 0 10px;
+  margin: 0 4px;
+  min-height: 28px;
+}
+
+.workspace-module {
+  padding: 0 12px;
+}
+
+.workspace-box {
+  padding: 0 6px;
+}
+
+.center-module {
+  padding: 0 14px;
+}
+
+.system-module {
+  padding: 0 12px;
+}
+
+.title-label {
+  font-weight: 700;
+}
+
+.workspace-label {
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.clock-label {
+  font-weight: 700;
+}
+
+.network-label,
+.volume-label,
+.ip-label,
+.ac-label,
+.battery-label {
+  font-weight: 600;
 }

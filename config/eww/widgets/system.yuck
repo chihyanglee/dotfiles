@@ -1,0 +1,55 @@
+;;#######################################################
+;;# defpoll built-in or shell script to get information #
+;;#######################################################
+
+(defpoll clock-time :interval "1s"
+  "date '+%a %m/%d  %H:%M'")
+
+(defpoll volume-level :interval "1s"
+  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)\"%\"}'")
+
+(defpoll battery-level :interval "10s"
+  "cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -n1 | awk '{print $1\"%\"}'")
+
+(defpoll network-name :interval "5s"
+  "~/.config/eww/scripts/network.sh")
+
+(defpoll wifi-strength :interval "5s"
+  "~/.config/eww/scripts/wifi-strength.sh")
+
+(defpoll ac-status :interval "5s"
+  "~/.config/eww/scripts/ac-status.sh")
+
+(defpoll window-title :interval "1s"
+  "~/.config/eww/scripts/window-title.sh")
+
+(defpoll ip-address :interval "20s"
+  "~/.config/eww/scripts/ip-address.sh lan")
+;; lan(default) | wan | both
+
+;;#####################################################
+;;#        defwidget format label or display          #
+;;#####################################################
+
+(defwidget title-widget  []
+  (label :class "title-label" :limit-width 60 :text window-title))
+
+(defwidget clock-widget []
+  (label :class "clock-label" :text clock-time))
+
+(defwidget network-widget []
+  (label :class "network-label" :text "Wifi ${wifi-strength}"))
+  ;;(label :class "network-label" :text "NET ${network-name} ${wifi-strength}"))
+
+(defwidget volume-widget []
+  (label :class "volume-label" :text "VOL ${volume-level}"))
+
+(defwidget ac-widget []
+  (label :class "ac-label" :text "AC ${ac-status}"))
+
+(defwidget ip-widget []
+  (label :class "ip-label" :text "IP ${ip-address}"))
+
+(defwidget battery-widget []
+  (label :class "battery-label" :text "BAT ${battery-level}"))
+

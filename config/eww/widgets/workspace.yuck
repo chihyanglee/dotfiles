@@ -1,0 +1,6 @@
+(defpoll workspaces :interval "1s"
+  "~/.config/eww/scripts/workspace.sh")
+
+(defwidget workspace-widget []
+  (box :class "workspace-box"
+    (label :class "workspace-label" :text workspaces)))
