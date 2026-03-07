@@ -1,0 +1,3 @@
+;; EWW entrypoint
+(include "widgets/bar.yuck")
+

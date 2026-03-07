@@ -1,0 +1,24 @@
+[config]
+caching = true
+
+[config.wallpaper]
+command = "awww"
+arguments = ["img"]
+set = true
+
+[templates.kitty]
+input_path = "~/.config/matugen/templates/kitty.template"
+output_path = "~/.config/kitty/themes/generated.conf"
+
+[templates.fuzzel]
+input_path = "~/.config/matugen/templates/fuzzel.template"
+output_path = "~/.config/fuzzel/colors.ini"
+
+[templates.eww]
+input_path = "~/.config/matugen/templates/eww.template"
+output_path = "~/.config/eww/colors.scss"
+
+[templates.hyprland]
+input_path = "~/.config/matugen/templates/hyprland.template"
+output_path = "~/.config/hypr/theme.conf"
+

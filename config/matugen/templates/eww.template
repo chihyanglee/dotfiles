@@ -1,0 +1,3 @@
+$bar-bg: {{ colors.surface.default.rgba }};
+$bar-fg: {{ colors.on_surface.default.hex }};
+$bar-border: {{ colors.primary.default.hex }};

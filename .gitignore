@@ -1,0 +1,7 @@
+# generated themes
+config/**/themes/generated.conf
+config/themes/
+config/matugen/generated/
+
+# caches
+**/.cache/

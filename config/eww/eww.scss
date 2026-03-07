@@ -1,0 +1,12 @@
+@import "./colors.scss";
+
+.bar {
+  background: rgba(20, 20, 20, 0.85);
+  color: #e6e6e6;
+  border-radius: 10px;
+  padding: 6px 10px;
+}
+
+.left, .center, .right {
+  padding: 0 10px;
+}
