@@ -12,6 +12,7 @@ Personal Arch Linux desktop configuration centered around Hyprland.
 | **Matugen + awww** | Wallpaper-driven dynamic theming |
 | **Fuzzel** | App launcher / wallpaper picker |
 | **Mako** | Notifications |
+| **mise** | Dev tool version manager (node, python, go, etc.) |
 
 ## Layout
 
@@ -26,6 +27,7 @@ config/
 ├── kitty/         terminal emulator
 ├── mako/          notification daemon
 ├── matugen/       color generation templates
+├── mise/          dev tool versions (node, python, go, uv, pnpm)
 ├── tmux/          terminal multiplexer
 ├── vim/           editor
 └── zsh/           shell (.zshrc, aliases, plugins, p10k)
@@ -56,7 +58,7 @@ Matugen uses templates in `config/matugen/templates/` to generate color files fo
 git clone <repo-url> ~/dotfiles
 
 # Symlink all configs
-ln -sfn ~/dotfiles/config/{hypr,kitty,fuzzel,mako,eww,awww,matugen,tmux,zsh,vim} ~/.config/
+ln -sfn ~/dotfiles/config/{hypr,kitty,fuzzel,mako,eww,awww,matugen,mise,tmux,zsh,vim} ~/.config/
 
 # Zsh entrypoint (delegates to the repo)
 cat > ~/.zshrc <<'EOF'

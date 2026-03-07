@@ -1,0 +1,14 @@
+[tools]
+# Pin global version
+node = "lts"
+pnpm = "latest"
+python = "3.14"
+go = "latest"
+uv = "latest"
+
+[settings]
+python.uv_venv_auto = "create|source"
+
+[env]
+_.path = ["./node_modules/.bin"]
+
