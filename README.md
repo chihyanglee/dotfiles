@@ -26,8 +26,11 @@ config/
 ├── hypr/          compositor (modular: keybinds, autostart, theme, etc.)
 ├── kitty/         terminal emulator
 ├── mako/          notification daemon
+├── gtk-3.0/       GTK 3 dark theme
+├── gtk-4.0/       GTK 4 dark theme
 ├── matugen/       color generation templates
 ├── mise/          dev tool versions (node, python, go, uv, pnpm)
+├── scripts/       helper scripts (dark mode, etc.)
 ├── tmux/          terminal multiplexer
 ├── vim/           editor
 └── zsh/           shell (.zshrc, aliases, plugins, p10k)
@@ -51,6 +54,32 @@ Matugen uses templates in `config/matugen/templates/` to generate color files fo
 ~/.config/awww/scripts/pick-wallpaper.sh
 ```
 
+## Prerequisites
+
+Install these packages before running the setup script.
+
+| Package | Role |
+|---------|------|
+| hyprland | Wayland compositor |
+| xdg-desktop-portal-hyprland | Portal backend for screen sharing, file picker, etc. |
+| kitty | Terminal emulator |
+| tmux | Terminal multiplexer |
+| zsh | Shell |
+| fuzzel | Wayland app launcher |
+| mako | Notification daemon |
+| eww | Widget system for the top bar (AUR) |
+| awww | Wallpaper setter (AUR) |
+| matugen | Material color generation from wallpaper (AUR) |
+| grim, slurp, wl-copy | Screenshot pipeline |
+| brightnessctl | Brightness key support |
+| wireplumber | Audio control via `wpctl` |
+| networkmanager | Network widgets via `nmcli` |
+| jq | JSON parsing in EWW scripts |
+| fzf | Fuzzy finder for shell |
+| zoxide | Smart `cd` replacement |
+| mise | Dev tool version manager |
+| ttf-firacode-nerd | Terminal font (FiraCode Nerd Font) |
+
 ## Setup
 
 ```bash
@@ -58,7 +87,7 @@ Matugen uses templates in `config/matugen/templates/` to generate color files fo
 git clone <repo-url> ~/dotfiles
 
 # Symlink all configs
-ln -sfn ~/dotfiles/config/{hypr,kitty,fuzzel,mako,eww,awww,matugen,mise,tmux,zsh,vim} ~/.config/
+ln -sfn ~/dotfiles/config/{hypr,kitty,fuzzel,mako,eww,awww,matugen,mise,tmux,zsh,vim,gtk-3.0,gtk-4.0,scripts} ~/.config/
 
 # Zsh entrypoint (delegates to the repo)
 cat > ~/.zshrc <<'EOF'
@@ -77,6 +106,15 @@ mkdir -p ~/Pictures/Wallpapers
 
 # Ensure generated theme placeholder exists
 touch ~/.config/hypr/theme.conf
+
+# Apply dark mode for GTK/portal-aware apps
+~/.config/scripts/set-dark-mode.sh
+```
+
+Or run the setup script to do everything at once:
+
+```bash
+~/dotfiles/setup.sh
 ```
 
 ## Useful Commands
