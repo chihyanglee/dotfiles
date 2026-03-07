@@ -1,55 +1,67 @@
-;;#######################################################
-;;# defpoll built-in or shell script to get information #
-;;#######################################################
-
+;; Polls
 (defpoll clock-time :interval "1s"
-  "date '+%a %m/%d  %H:%M'")
+  "date '+%H:%M'")
 
-(defpoll volume-level :interval "1s"
-  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{print int($2*100)\"%\"}'")
+(defpoll clock-date :interval "60s"
+  "date '+%-m/%-d'")
 
-(defpoll battery-level :interval "10s"
-  "cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -n1 | awk '{print $1\"%\"}'")
+(defpoll clock-day :interval "60s"
+  "~/.config/eww/scripts/day.sh")
 
-(defpoll network-name :interval "5s"
-  "~/.config/eww/scripts/network.sh")
+(defpoll cpu-usage :interval "3s"
+  "~/.config/eww/scripts/cpu.sh")
+
+(defpoll cpu-temp :interval "5s"
+  "~/.config/eww/scripts/temperature.sh")
+
+(defpoll mem-usage :interval "5s"
+  "~/.config/eww/scripts/memory.sh")
 
 (defpoll wifi-strength :interval "5s"
   "~/.config/eww/scripts/wifi-strength.sh")
 
+(defpoll battery-level :interval "10s"
+  "cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -n1 | awk '{print $1\"%\"}'")
+
 (defpoll ac-status :interval "5s"
   "~/.config/eww/scripts/ac-status.sh")
 
-(defpoll window-title :interval "1s"
-  "~/.config/eww/scripts/window-title.sh")
+(defpoll bluetooth-status :interval "5s"
+  "~/.config/eww/scripts/bluetooth.sh")
 
-(defpoll ip-address :interval "20s"
-  "~/.config/eww/scripts/ip-address.sh lan")
-;; lan(default) | wan | both
-
-;;#####################################################
-;;#        defwidget format label or display          #
-;;#####################################################
-
-(defwidget title-widget  []
-  (label :class "title-label" :limit-width 60 :text window-title))
-
+;; Widgets
 (defwidget clock-widget []
-  (label :class "clock-label" :text clock-time))
+  (label :class "clock-label" :text "󰥔  ${clock-day} ${clock-date} ${clock-time}"))
 
-(defwidget network-widget []
-  (label :class "network-label" :text "Wifi ${wifi-strength}"))
-  ;;(label :class "network-label" :text "NET ${network-name} ${wifi-strength}"))
+(defwidget cpu-widget []
+  (box :spacing 2
+    (label :class "sys-icon" :text "󰻠")
+    (label :class "sys-label" :text cpu-usage)))
 
-(defwidget volume-widget []
-  (label :class "volume-label" :text "VOL ${volume-level}"))
+(defwidget temp-widget []
+  (box :spacing 2
+    (label :class "sys-icon" :text "󰔏")
+    (label :class "sys-label" :text cpu-temp)))
 
-(defwidget ac-widget []
-  (label :class "ac-label" :text "AC ${ac-status}"))
+(defwidget mem-widget []
+  (box :spacing 2
+    (label :class "sys-icon" :text "󰍛")
+    (label :class "sys-label" :text mem-usage)))
 
-(defwidget ip-widget []
-  (label :class "ip-label" :text "IP ${ip-address}"))
+(defwidget wifi-widget []
+  (box :spacing 2
+    (label :class "sys-icon" :text {wifi-strength == "--" ? "󰤭" : "󰤨"})
+    (label :class "sys-label" :text wifi-strength)))
 
 (defwidget battery-widget []
-  (label :class "battery-label" :text "BAT ${battery-level}"))
+  (box :spacing 2
+    (label :class "sys-icon" :text {ac-status == "ON" ? "󰂄" : "󰁹"})
+    (label :class "sys-label" :text battery-level)))
 
+(defwidget bluetooth-widget []
+  (box :spacing 2
+    (label :class "sys-icon" :text {bluetooth-status == "on" ? "󰂯" : "󰂲"})))
+
+(defwidget power-widget []
+  (button :class "power-button" :onclick "uwsm app -- wlogout &"
+    (label :class "sys-icon" :text "󰐥")))

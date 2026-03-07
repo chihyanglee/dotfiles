@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 
 active="$(hyprctl activeworkspace -j | jq -r '.id')"
-all="$(hyprctl workspaces -j | jq -r 'map(.id) | sort | .[]')"
+all="$(hyprctl workspaces -j | jq -r '[.[] | select(.id > 0)] | map(.id) | sort | .[]')"
 
-out=""
+max=5
 for ws in $all; do
-  if [[ "$ws" == "$active" ]]; then
-    out+="●$ws  "
-  else
-    out+="○$ws  "
-  fi
+  (( ws > max )) && max="$ws"
 done
 
-printf "%s\n" "$out"
+json="["
+for ((i=1; i<=max; i++)); do
+  (( i > 1 )) && json+=","
+  if (( i == active )); then
+    json+="{\"id\":$i,\"active\":true}"
+  else
+    json+="{\"id\":$i,\"active\":false}"
+  fi
+done
+json+="]"
 
+echo "$json"

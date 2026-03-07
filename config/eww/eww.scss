@@ -28,34 +28,50 @@
 }
 
 .workspace-box {
-  padding: 0 6px;
+  padding: 0 2px;
+}
+
+.ws-dot,
+.ws-dot-active {
+  font-size: 9px;
+}
+
+.ws-dot {
+  opacity: 0.5;
+}
+
+.ws-dot-active {
+  opacity: 1.0;
 }
 
 .center-module {
-  padding: 0 14px;
+  padding: 0 16px;
 }
 
-.system-module {
-  padding: 0 12px;
-}
-
-.title-label {
-  font-weight: 700;
-}
-
-.workspace-label {
-  font-weight: 700;
-  letter-spacing: 1px;
+.clock-icon {
+  font-size: 13px;
 }
 
 .clock-label {
   font-weight: 700;
 }
 
-.network-label,
-.volume-label,
-.ip-label,
-.ac-label,
-.battery-label {
+.system-module {
+  padding: 0 12px;
+}
+
+.sys-icon {
+  font-size: 13px;
+}
+
+.sys-label {
   font-weight: 600;
+}
+
+.power-button {
+  padding: 0 2px;
+}
+
+.power-button:hover {
+  color: mix($bar-fg, red, 50%);
 }

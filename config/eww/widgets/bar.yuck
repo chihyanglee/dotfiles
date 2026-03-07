@@ -13,17 +13,17 @@
 
 (defwidget bar-content []
   (centerbox :class "bar"
-    (box :class "bar-left"
+    (box :class "bar-left" :halign "start"
       (box :class "module workspace-module"
         (workspace-widget)))
-    (box :class "bar-center"
-      (box :class "module center-module"
-        (title-widget)))
-    (box :class "bar-right"
-      (box :class "module system-module" :spacing 10
-        (network-widget)
-        (ip-widget)
-        (volume-widget)
-        (ac-widget)
+    (box :class "module center-module"
+      (clock-widget))
+    (box :class "bar-right" :halign "end"
+      (box :class "module system-module" :spacing 6
+        (cpu-widget)
+        (temp-widget)
+        (mem-widget)
+        (wifi-widget)
         (battery-widget)
-        (clock-widget)))))
+        ;; (bluetooth-widget)
+        (power-widget)))))
