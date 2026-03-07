@@ -5,9 +5,9 @@
   :focusable false
   :geometry (geometry
     :x "0%"
-    :y "6px"
+    :y "4px"
     :width "98%"
-    :height "42px"
+    :height "26px"
     :anchor "top center")
   (bar-content))
 
