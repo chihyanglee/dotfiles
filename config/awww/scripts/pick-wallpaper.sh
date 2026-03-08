@@ -20,4 +20,4 @@ if [[ -z "${selection:-}" ]]; then
   exit 0
 fi
 
-nohup "$APPLY_SCRIPT" "$selection" >/dev/null 2>&1 &
+setsid "$APPLY_SCRIPT" "$selection" </dev/null >/dev/null 2>&1 &

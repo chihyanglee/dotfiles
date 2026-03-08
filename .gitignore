@@ -1,7 +1,10 @@
-# generated themes
+# generated themes (matugen outputs — reproduced from templates + any wallpaper)
 config/**/themes/generated.conf
 config/themes/
 config/matugen/generated/
+config/eww/colors.scss
+config/fuzzel/colors.ini
+config/hypr/theme.conf
 
 # caches
 **/.cache/
