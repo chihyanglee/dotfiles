@@ -6,6 +6,10 @@ config/eww/colors.scss
 config/fuzzel/colors.ini
 config/hypr/theme.conf
 
+# fastfetch logo images (user-specific)
+config/fastfetch/logos/*
+!config/fastfetch/logos/.gitkeep
+
 # caches
 **/.cache/
 

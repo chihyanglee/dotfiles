@@ -16,6 +16,15 @@ Arch Linux desktop configuration for Hyprland (Wayland), managed with manual sym
 | **fcitx5** | Input method (Rime for Chinese, Mozc for Japanese) |
 | **awww + Matugen** | Wallpaper setter + Material You color generation |
 | **mise** | Dev tool version manager |
+| **fastfetch** | System info display with random logo |
+| **eza** | Modern `ls` with icons and git status |
+| **bat** | `cat` with syntax highlighting |
+| **ripgrep** | Fast recursive search |
+| **delta** | Git diff viewer with syntax highlighting |
+| **dust** | Disk usage visualizer |
+| **duf** | Disk free viewer |
+| **btop** | System monitor |
+| **procs** | Process viewer |
 
 ## Layout
 
@@ -40,6 +49,7 @@ config/
 ├── mise/          dev tool versions
 ├── scripts/       helpers (dark mode, etc.)
 ├── tmux/          terminal multiplexer
+├── fastfetch/     system info (config + logos/)
 ├── vim/           editor
 ├── yazi/          file manager
 └── zsh/           shell (.zshrc, aliases, plugins, keybinds, p10k)
@@ -69,6 +79,9 @@ yay -S eww awww matugen
 # Tools
 sudo pacman -S yazi fzf zoxide jq grim slurp wl-copy brightnessctl wireplumber networkmanager
 
+# CLI replacements
+sudo pacman -S eza bat ripgrep git-delta dust duf btop procs fastfetch
+
 # Input method
 sudo pacman -S fcitx5 fcitx5-configtool fcitx5-gtk fcitx5-qt fcitx5-rime fcitx5-mozc
 
@@ -83,7 +96,7 @@ sudo pacman -S mise
 
 ```bash
 git clone <repo-url> ~/dotfiles
-ln -sfn ~/dotfiles/config/{hypr,kitty,fuzzel,mako,eww,awww,matugen,mise,tmux,zsh,vim,yazi,gtk-3.0,gtk-4.0,scripts} ~/.config/
+ln -sfn ~/dotfiles/config/{hypr,kitty,fuzzel,mako,eww,awww,matugen,mise,tmux,zsh,vim,yazi,fastfetch,gtk-3.0,gtk-4.0,scripts} ~/.config/
 ```
 
 ### 3. Shell setup
