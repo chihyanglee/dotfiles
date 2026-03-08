@@ -32,6 +32,9 @@
 (defpoll bluetooth-status :interval "5s"
   "~/.config/eww/scripts/bluetooth.sh")
 
+(defpoll input-method :interval "1s"
+  "~/.config/eww/scripts/im.sh")
+
 ;; Widgets
 (defwidget clock-widget []
   (label :class "clock-label" :text "󰥔  ${clock-day} ${clock-date} ${clock-time}"))
@@ -69,3 +72,7 @@
 (defwidget bluetooth-widget []
   (box :spacing 2
     (label :class "sys-icon" :text {bluetooth-status == "on" ? "󰂯" : "󰂲"})))
+
+(defwidget im-widget []
+  (button :class "im-label" :onclick "fcitx5-remote -t"
+    (label :text input-method)))

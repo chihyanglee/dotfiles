@@ -20,6 +20,7 @@
       (clock-widget))
     (box :class "bar-right" :halign "end"
       (box :class "module system-module" :spacing 6
+        (im-widget)
         (cpu-widget)
         (temp-widget)
         (mem-widget)
