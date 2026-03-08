@@ -17,6 +17,9 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt hist_ignore_dups hist_reduce_blanks share_history
 
+# Load keybinds (Home/End/Delete etc. via terminfo)
+[[ -f "$ZDOTDIR/keybinds.zsh" ]] && source "$ZDOTDIR/keybinds.zsh"
+
 # Load aliases if present
 [[ -f "$ZDOTDIR/aliases.zsh" ]] && source "$ZDOTDIR/aliases.zsh"
 

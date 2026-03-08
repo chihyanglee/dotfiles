@@ -42,7 +42,7 @@ config/
 ├── tmux/          terminal multiplexer
 ├── vim/           editor
 ├── yazi/          file manager
-└── zsh/           shell (.zshrc, aliases, plugins, p10k)
+└── zsh/           shell (.zshrc, aliases, plugins, keybinds, p10k)
 ```
 
 ## Theme Pipeline
