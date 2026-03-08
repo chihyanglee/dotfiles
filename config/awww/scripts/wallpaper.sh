@@ -18,7 +18,7 @@ if ! pgrep -x awww-daemon >/dev/null 2>&1; then
   sleep 1
 fi
 
-awww img "$WALLPAPER"
+awww img "$WALLPAPER" --transition-type center --transition-duration 1
 matugen image "$WALLPAPER" -m dark
 
 hyprctl reload
