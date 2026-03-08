@@ -6,5 +6,5 @@ case "$im" in
   keyboard-us)  echo "EN" ;;
   rime)         echo "中" ;;
   mozc)         echo "あ" ;;
-  *)            echo "??" ;;
+  *)            echo "EN" ;;
 esac
