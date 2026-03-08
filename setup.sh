@@ -7,28 +7,23 @@ ZSH_PLUGIN_DIR="$HOME/.local/share/zsh"
 
 echo "Setting up dotfiles from $DOTFILES"
 
-# Symlink all configs to ~/.config
-configs=(hypr kitty fuzzel mako eww awww matugen mise tmux zsh vim gtk-3.0 gtk-4.0 scripts)
+# Check stow is installed
+if ! command -v stow &>/dev/null; then
+    echo "Error: GNU Stow is required. Install it with: pacman -S stow"
+    exit 1
+fi
+
+# Stow all packages
 mkdir -p ~/.config
-for dir in "${configs[@]}"; do
-    if [ -d "$DOTFILES/config/$dir" ]; then
-        ln -sfn "$DOTFILES/config/$dir" "$HOME/.config/$dir"
-        echo "  linked $dir"
+packages=(hypr kitty fuzzel mako eww awww matugen mise tmux vim zsh gtk-3.0 gtk-4.0 scripts yazi fastfetch)
+for pkg in "${packages[@]}"; do
+    if [ -d "$DOTFILES/$pkg" ]; then
+        stow -d "$DOTFILES" -t "$HOME" "$pkg"
+        echo "  stowed $pkg"
     else
-        echo "  skipped $dir (not found)"
+        echo "  skipped $pkg (not found)"
     fi
 done
-
-# Zsh entrypoint
-if [ ! -f "$HOME/.zshrc" ] || ! grep -q 'ZDOTDIR' "$HOME/.zshrc"; then
-    cat > "$HOME/.zshrc" <<'EOF'
-export ZDOTDIR="$HOME/.config/zsh"
-source "$ZDOTDIR/.zshrc"
-EOF
-    echo "  created ~/.zshrc stub"
-else
-    echo "  ~/.zshrc already configured"
-fi
 
 # Zsh plugins
 mkdir -p "$ZSH_PLUGIN_DIR"
@@ -56,7 +51,7 @@ touch "$HOME/.config/hypr/theme.conf"
 
 # Dark mode
 if command -v gsettings &>/dev/null; then
-    "$HOME/.config/scripts/set-dark-mode.sh"
+    "$HOME/.local/bin/set-dark-mode"
     echo "  applied dark mode settings"
 else
     echo "  skipped dark mode (gsettings not found)"

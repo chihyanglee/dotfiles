@@ -5,6 +5,8 @@ fi
 
 export ZDOTDIR="$HOME/.config/zsh"
 export PATH="$HOME/.local/bin:$PATH"
+export EDITOR="nvim"
+export VISUAL="nvim"
 ZSH_PLUGIN_DIR="$HOME/.local/share/zsh"
 
 # Keep startup silent and predictable

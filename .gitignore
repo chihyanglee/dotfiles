@@ -1,14 +1,13 @@
 # generated themes (matugen outputs — reproduced from templates + any wallpaper)
-config/**/themes/generated.conf
-config/themes/
-config/matugen/generated/
-config/eww/colors.scss
-config/fuzzel/colors.ini
-config/hypr/theme.conf
+**/themes/generated.conf
+matugen/.config/matugen/generated/
+eww/.config/eww/colors.scss
+fuzzel/.config/fuzzel/colors.ini
+hypr/.config/hypr/theme.conf
 
 # fastfetch logo images (user-specific)
-config/fastfetch/logos/*
-!config/fastfetch/logos/.gitkeep
+fastfetch/.config/fastfetch/logos/*
+!fastfetch/.config/fastfetch/logos/.gitignore
 
 # caches
 **/.cache/
