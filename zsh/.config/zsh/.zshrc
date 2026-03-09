@@ -12,6 +12,10 @@ ZSH_PLUGIN_DIR="$HOME/.local/share/zsh"
 # Keep startup silent and predictable
 setopt no_beep
 
+# Completion
+autoload -Uz compinit && compinit
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|=*' 'l:|=* r:|=*'
+
 # History (XDG-ish)
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
 mkdir -p "${HISTFILE:h}"
