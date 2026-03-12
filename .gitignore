@@ -11,6 +11,7 @@ fastfetch/.config/fastfetch/logos/*
 
 # caches
 **/.cache/
+**/.zcompdump*
 
 # AGENTS.md
 AGENTS.md
