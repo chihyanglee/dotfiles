@@ -80,8 +80,15 @@ sudo pacman -S hyprland uwsm xdg-desktop-portal-hyprland kitty tmux zsh fuzzel m
 # Bar and theming (AUR)
 yay -S eww awww matugen
 
+# Audio (PipeWire + WirePlumber)
+sudo pacman -S pipewire wireplumber pipewire-pulse
+
+# Bluetooth
+sudo pacman -S bluez bluez-utils
+sudo systemctl enable --now bluetooth
+
 # Tools
-sudo pacman -S yazi fzf zoxide jq grim slurp wl-copy brightnessctl wireplumber networkmanager
+sudo pacman -S yazi fzf zoxide jq grim slurp wl-copy brightnessctl networkmanager
 
 # CLI replacements
 sudo pacman -S eza bat ripgrep git-delta dust duf btop procs fastfetch
