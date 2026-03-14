@@ -23,6 +23,9 @@ alias ps='procs'
 # btop (htop replacement)
 alias top='btop'
 
+# fastfetch (auto-detect image support)
+alias fastfetch='fastfetch-wrapper'
+
 # safety
 alias rm='rm -I'
 alias mv='mv -i'

@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Use image config when the terminal supports image rendering directly.
+# tmux, screen, and other multiplexers break image protocols (kitty, sixel).
+
+if [[ -z "$TMUX" ]] && [[ -z "$STY" ]] && [[ -n "$KITTY_PID" || -n "$GHOSTTY_RESOURCES_DIR" ]]; then
+  exec /usr/bin/fastfetch --config ~/.config/fastfetch/config.jsonc "$@"
+else
+  exec /usr/bin/fastfetch --config ~/.config/fastfetch/config-ascii.jsonc "$@"
+fi
