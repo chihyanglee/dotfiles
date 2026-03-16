@@ -88,7 +88,7 @@ sudo pacman -S bluez bluez-utils
 sudo systemctl enable --now bluetooth
 
 # Tools
-sudo pacman -S yazi fzf zoxide jq grim slurp wl-copy brightnessctl networkmanager
+sudo pacman -S yazi fzf zoxide jq grim slurp wl-copy brightnessctl networkmanager mpv glow
 
 # CLI replacements
 sudo pacman -S eza bat ripgrep git-delta dust duf btop procs fastfetch
