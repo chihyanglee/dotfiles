@@ -15,7 +15,10 @@ fi
 
 if ! pgrep -x awww-daemon >/dev/null 2>&1; then
   awww-daemon >/dev/null 2>&1 &
-  sleep 1
+  for _ in $(seq 1 50); do
+    awww img --help >/dev/null 2>&1 && break
+    sleep 0.1
+  done
 fi
 
 awww img "$WALLPAPER" --transition-type center --transition-duration 1
