@@ -1,9 +1,0 @@
-(defpoll workspaces :interval "1s"
-  "~/.config/eww/scripts/workspace.sh")
-
-(defwidget workspace-widget []
-  (box :class "workspace-box" :spacing 6
-    (for ws in workspaces
-      (button :class {ws.active ? "ws-dot-active" : "ws-dot"}
-              :onclick "hyprctl dispatch workspace ${ws.id}"
-        (label :text {ws.active ? "●" : "○"})))))

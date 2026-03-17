@@ -1,0 +1,64 @@
+* {
+    bg:       #1e1e1edd;
+    bg-alt:   #2a2a2aff;
+    fg:       #ddddddff;
+    accent:   #3584e4ff;
+    urgent:   #e01b24ff;
+
+    background-color: transparent;
+    text-color:       @fg;
+}
+
+window {
+    width:            40%;
+    background-color: @bg;
+    border:           2px;
+    border-color:     @accent;
+    border-radius:    8px;
+    padding:          20px;
+}
+
+mainbox {
+    spacing: 10px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius:    6px;
+    padding:          8px 12px;
+    children:         [ prompt, entry ];
+    spacing:          8px;
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    placeholder:       "Search...";
+    placeholder-color: #666666;
+}
+
+listbox {
+    spacing: 4px;
+}
+
+listview {
+    lines:   8;
+    columns: 1;
+    spacing: 4px;
+}
+
+element {
+    padding:       6px 10px;
+    border-radius: 4px;
+}
+
+element selected.normal {
+    background-color: @accent;
+    text-color:       #ffffff;
+}
+
+element normal.urgent {
+    text-color: @urgent;
+}

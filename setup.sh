@@ -15,7 +15,7 @@ fi
 
 # Stow all packages
 mkdir -p ~/.config
-packages=(hypr kitty fuzzel mako eww awww matugen mise tmux vim zsh gtk-3.0 gtk-4.0 scripts yazi fastfetch)
+packages=(i3 i3status rofi dunst picom kitty mise tmux vim zsh gtk-3.0 gtk-4.0 scripts yazi fastfetch nvim)
 for pkg in "${packages[@]}"; do
     if [ -d "$DOTFILES/$pkg" ]; then
         stow -d "$DOTFILES" -t "$HOME" "$pkg"
@@ -45,9 +45,6 @@ done
 
 # Wallpaper directory
 mkdir -p "$HOME/Pictures/Wallpapers"
-
-# Theme placeholder
-touch "$HOME/.config/hypr/theme.conf"
 
 # Dark mode
 if command -v gsettings &>/dev/null; then
