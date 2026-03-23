@@ -1,10 +1,10 @@
 [config]
 caching = true
+fallback_color = "#4285f4"
 
 [config.wallpaper]
-command = "awww"
-arguments = ["img"]
-set = true
+set = false
+command = "awww img {{ image }}"
 
 [templates.kitty]
 input_path = "~/.config/matugen/templates/kitty.template"

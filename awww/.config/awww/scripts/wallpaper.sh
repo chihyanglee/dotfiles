@@ -22,9 +22,12 @@ if ! pgrep -x awww-daemon >/dev/null 2>&1; then
 fi
 
 awww img "$WALLPAPER" --transition-type center --transition-duration 1
-matugen image "$WALLPAPER" -m dark
+matugen image "$WALLPAPER" -m dark --source-color-index 0
 
 hyprctl reload
+
+# Reload Kitty colors (Kitty doesn't auto-reload included files)
+pkill -USR1 kitty || true
 
 pkill eww || true
 eww daemon
