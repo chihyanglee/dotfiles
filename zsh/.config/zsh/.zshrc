@@ -7,7 +7,6 @@ export ZDOTDIR="$HOME/.config/zsh"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 export VISUAL="nvim"
-ZSH_PLUGIN_DIR="$HOME/.local/share/zsh"
 
 # Keep startup silent and predictable
 setopt no_beep
@@ -23,20 +22,22 @@ HISTSIZE=10000
 SAVEHIST=10000
 setopt hist_ignore_dups hist_reduce_blanks share_history
 
+# Bootstrap zinit
+ZINIT_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/zinit/zinit.git"
+if [[ ! -d "$ZINIT_HOME" ]]; then
+    mkdir -p "$(dirname $ZINIT_HOME)"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+source "${ZINIT_HOME}/zinit.zsh"
+
 # Load keybinds (Home/End/Delete etc. via terminfo)
 [[ -f "$ZDOTDIR/keybinds.zsh" ]] && source "$ZDOTDIR/keybinds.zsh"
 
 # Load aliases if present
 [[ -f "$ZDOTDIR/aliases.zsh" ]] && source "$ZDOTDIR/aliases.zsh"
 
-# load plugins
+# Load plugins
 [[ -f "$ZDOTDIR/plugins.zsh" ]] && source "$ZDOTDIR/plugins.zsh"
-
-# theme
-if [[ -d "$ZSH_PLUGIN_DIR/powerlevel10k" ]]; then
-    source "$ZSH_PLUGIN_DIR/powerlevel10k/powerlevel10k.zsh-theme"
-fi
 
 # p10k
 [[ -f "$ZDOTDIR/p10k.zsh" ]] && source "$ZDOTDIR/p10k.zsh"
-
