@@ -70,7 +70,7 @@
 (defwidget volume-widget []
   (button :onclick "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
     (box :spacing 2
-      (label :class "sys-icon" :text {volume-muted == "true" ? "󰝟" : "󰕾"})
+      (label :class "sys-icon" :text {(volume-muted == "true" || volume-level == "0%") ? "󰝟" : "󰕾"})
       (label :class "sys-label" :text volume-level))))
 
 (defwidget bluetooth-widget []
