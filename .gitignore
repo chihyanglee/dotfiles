@@ -3,8 +3,11 @@
 matugen/.config/matugen/generated/
 eww/.config/eww/colors.scss
 fuzzel/.config/fuzzel/colors.ini
-hypr/.config/hypr/theme.conf
+hypr/.config/hypr/theme.lua
 hypr/.config/hypr/hyprlock-theme.conf
+
+# Hyprland may autogenerate a stub hyprland.conf if .lua not yet loaded
+hypr/.config/hypr/hyprland.conf
 
 # fastfetch logo images (user-specific)
 fastfetch/.config/fastfetch/logos/*
