@@ -41,3 +41,6 @@ source "${ZINIT_HOME}/zinit.zsh"
 
 # p10k
 [[ -f "$ZDOTDIR/p10k.zsh" ]] && source "$ZDOTDIR/p10k.zsh"
+
+# opencode
+export PATH=/home/cyl/.opencode/bin:$PATH
