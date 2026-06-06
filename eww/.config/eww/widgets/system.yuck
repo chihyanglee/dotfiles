@@ -26,11 +26,8 @@
 (defpoll ac-status :interval "5s"
   "~/.config/eww/scripts/ac-status.sh")
 
-(defpoll volume-level :interval "1s"
-  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | awk '{if (/MUTED/) print \"0%\"; else print int($2*100)\"%\"}'")
-
-(defpoll volume-muted :interval "1s"
-  "wpctl get-volume @DEFAULT_AUDIO_SINK@ | grep -q MUTED && echo 'true' || echo 'false'")
+(deflisten volume-level "~/.config/eww/scripts/volume-level.sh")
+(deflisten volume-muted "~/.config/eww/scripts/volume-muted.sh")
 
 (defpoll bluetooth-status :interval "5s"
   "~/.config/eww/scripts/bluetooth.sh")
