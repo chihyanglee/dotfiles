@@ -8,6 +8,7 @@ uv = "latest"
 "npm:prettier" = "latest"
 "npm:markdownlint-cli2" = "latest"
 "npm:markdown-toc" = "latest"
+npm = "latest"
 
 [settings]
 python.uv_venv_auto = "create|source"
