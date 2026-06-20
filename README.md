@@ -69,6 +69,16 @@ wallpaper → awww (display) → matugen (extract colors) → template files →
 
 Templates live in `matugen/.config/matugen/templates/`. Generated files (`theme.conf`, `colors.scss`, `colors.ini`, `generated.conf`) are gitignored — never edit them directly.
 
+### Switch Wallpaper
+
+Drop images into `~/Pictures/Wallpapers/`, then pick one of:
+
+- **Keyboard:** `Super + Shift + W` — opens a floating Kitty with the fuzzel picker
+- **Picker script:** `~/.config/awww/scripts/pick-wallpaper.sh`
+- **Direct:** `~/.config/awww/scripts/wallpaper.sh /absolute/path/to/image.jpg`
+
+Either path runs `awww img` → `matugen image -m dark` → `hyprctl reload`, reloads Kitty (`pkill -USR1 kitty`), and restarts EWW.
+
 ## Setup
 
 ### 1. Install packages
