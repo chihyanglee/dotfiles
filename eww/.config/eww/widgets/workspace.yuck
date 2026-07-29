@@ -1,4 +1,6 @@
-(defpoll workspaces :interval "1s"
+;; :initial matters — without it the var is "" until the first poll lands, and the
+;; `for` below fails to parse that as json-value on every eww start.
+(defpoll workspaces :interval "1s" :initial "[]"
   "~/.config/eww/scripts/workspace.sh")
 
 (defwidget workspace-widget []
