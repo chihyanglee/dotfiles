@@ -88,6 +88,27 @@ keeps its `.conf` format — only the compositor moved to Lua.
 instead of asking them to quit, which upstream advises against; `hyprshutdown`
 (`pacman -S hyprshutdown`, optional) prompts them to exit first.
 
+### Git operations touching `hypr/` break the running session
+
+`stow` folds `~/.config/hypr` into a symlink pointing straight at `hypr/.config/hypr/`
+in this repo, and Hyprland reloads a config file the moment it changes. So any
+`git checkout`, `stash`, `rebase` or `merge` that adds or removes files under `hypr/`
+edits the **live** config dir, and Hyprland reacts within a second. Removing
+`hyprland.lua` even briefly drops the session into emergency mode, where only three
+binds survive: `Super + Q` (terminal), `Super + R` (launcher), `Super + M` (exit).
+
+Suppress the reload for the duration, then reload once at the end:
+
+```bash
+hyprctl keyword misc:disable_autoreload true   # runtime only, resets on next login
+# ... git checkout / rebase / stash ...
+hyprctl reload
+```
+
+If a session is already in emergency mode, a plain `hyprctl reload` recovers it once
+the files are back on disk — check with `hyprctl configerrors` and
+`hyprctl binds -j | jq length` (50 is the full set).
+
 ## Theme Pipeline
 
 Changing a wallpaper regenerates the entire color scheme across all apps:
