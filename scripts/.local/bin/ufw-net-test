@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+# A/B test outbound networking with ufw on vs off.
+#
+# Run it twice and compare:
+#   sudo ufw disable  && ufw-net-test  | tee /tmp/net-ufw-off.txt
+#   sudo ufw --force enable && ufw-net-test | tee /tmp/net-ufw-on.txt
+#   diff /tmp/net-ufw-off.txt /tmp/net-ufw-on.txt
+#
+# The discriminator is the LARGE transfer, not the small ones. Small requests
+# succeed even when conntrack INVALID drops are breaking big downloads.
+
+set -uo pipefail
+
+BIG_BYTES=104857600 # 100 MB
+say() { printf '%s\n' "$*"; }
+hr() { printf -- '---- %s\n' "$*"; }
+
+hr "ufw REAL state"
+# NB: `systemctl is-active ufw` is unreliable — `ufw disable` flushes the rules
+# but leaves the unit active. These three lines are the ground truth.
+say "  ufw.conf ENABLED : $(grep -E '^ENABLED' /etc/ufw/ufw.conf 2>/dev/null | cut -d= -f2)"
+say "  systemd says     : $(systemctl is-active ufw 2>/dev/null)  <- ignore this"
+if sudo -n true 2>/dev/null; then
+    say "  ufw chains loaded: $(sudo iptables -S 2>/dev/null | grep -c ufw)"
+    sudo iptables -Z 2>/dev/null && say "  (counters zeroed for this run)"
+else
+    say "  ufw chains loaded: need sudo — rerun with sudo cached for counter data"
+fi
+
+hr "DNS"
+for h in github.com objects.githubusercontent.com; do
+    printf '  %-34s ' "$h"
+    timeout 10 getent hosts "$h" >/dev/null 2>&1 && say "resolves" || say "FAILED"
+done
+
+hr "small HTTPS (baseline — usually fine either way)"
+for h in https://github.com https://api.github.com; do
+    printf '  %-34s ' "${h#https://}"
+    curl -s -o /dev/null --max-time 15 \
+        -w 'conn=%{time_connect}s tls=%{time_appconnect}s ttfb=%{time_starttransfer}s code=%{http_code}\n' \
+        "$h" 2>/dev/null || say "FAILED/TIMEOUT"
+done
+
+hr "LARGE transfer — THIS is the real test"
+printf '  cloudflare 100MB                   '
+curl -s -o /dev/null --max-time 90 \
+    -w 'got=%{size_download}B in %{time_total}s speed=%{speed_download}B/s code=%{http_code}\n' \
+    "https://speed.cloudflare.com/__down?bytes=$BIG_BYTES" 2>/dev/null || say "FAILED/TIMEOUT (<-- reproduction)"
+
+printf '  github codeload (30s cap)          '
+curl -s -o /dev/null --max-time 30 \
+    -w 'got=%{size_download}B in %{time_total}s speed=%{speed_download}B/s\n' \
+    "https://codeload.github.com/torvalds/linux/tar.gz/refs/tags/v6.1" 2>/dev/null || say "stopped at cap (expected)"
+
+hr "which rule dropped packets"
+if sudo -n true 2>/dev/null; then
+    # A climbing INVALID counter during a stalled transfer is the smoking gun.
+    sudo iptables -L ufw-before-input -v -n 2>/dev/null |
+        awk 'NR<3 || /INVALID|icmp|DROP/ {print "  "$0}' ||
+        say "  no ufw-before-input chain (ufw is off)"
+    say "  --- ufw log tail ---"
+    sudo dmesg -T 2>/dev/null | grep '\[UFW' | tail -8 | sed 's/^/  /' || say "  no UFW log lines"
+else
+    say "  need sudo for counters"
+fi
+
+hr "path MTU"
+say "  wlan0 mtu: $(ip -o link show wlan0 2>/dev/null | awk '{print $5}')"
+ip route get 140.82.121.4 2>/dev/null | sed 's/^/  /'
