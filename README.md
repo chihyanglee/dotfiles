@@ -6,7 +6,8 @@ Arch Linux desktop configuration for Hyprland (Wayland), managed with [GNU Stow]
 
 | Component | Role |
 |-----------|------|
-| **Hyprland** (UWSM) | Wayland compositor via systemd session |
+| **Hyprland** | Wayland compositor, launched by `start-hyprland` |
+| **systemd user units** | `hyprland-session.target` binds the session to `graphical-session.target` |
 | **EWW** | Top bar — workspaces, clock, system info, input method |
 | **Kitty** | GPU-accelerated terminal |
 | **tmux + zsh** | Multiplexer + shell (Powerlevel10k prompt) |
@@ -53,6 +54,7 @@ dotfiles/
 ├── gtk-4.0/.config/gtk-4.0/    GTK 4 settings
 ├── mise/.config/mise/          dev tool versions
 ├── scripts/.local/bin/         user scripts (dark mode, tmux-launch, etc.)
+├── systemd/.config/systemd/user/  hyprland-session.target
 ├── tmux/.config/tmux/          terminal multiplexer
 ├── fastfetch/.config/fastfetch/ system info (config + logos/)
 ├── vim/.vim/vimrc              editor
@@ -87,6 +89,29 @@ keeps its `.conf` format — only the compositor moved to Lua.
 `exit()` otherwise. A bare `exit()` yanks the compositor out from under its clients
 instead of asking them to quit, which upstream advises against; `hyprshutdown`
 (`pacman -S hyprshutdown`, optional) prompts them to exit first.
+
+### Systemd session
+
+Hyprland is launched by `/usr/bin/start-hyprland`, which is only a watchdog wrapper — it
+does **not** tell systemd that a graphical session exists. Left alone,
+`graphical-session.target` never activates, and any user service bound to it silently
+never starts, even after `systemctl --user enable`. `hypridle.service` and
+`hyprpolkitagent.service` are both `WantedBy=graphical-session.target`, so both would be
+affected.
+
+The fix is the minimal `hyprland-session.target` from the Hyprland wiki (its stated
+alternative to full uwsm, which it calls "for advanced users"). `autostart.lua` starts it
+on `hyprland.start` and stops it on `hyprland.shutdown`; `BindsTo` +
+`PropagatesStopTo` pull `graphical-session.target` up and down with it.
+
+```bash
+systemctl --user is-active graphical-session.target   # expect: active
+```
+
+This is why autostart uses `uwsm app --` without a uwsm-managed session: it puts each app
+in its own systemd scope (journald logs, resource accounting) while
+`hyprland-session.target` supplies the session target that uwsm would otherwise provide.
+Env vars therefore stay in `env.lua` rather than moving to `~/.config/uwsm/env`.
 
 ### Git operations touching `hypr/` break the running session
 

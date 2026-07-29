@@ -15,7 +15,7 @@ fi
 
 # Stow all packages
 mkdir -p ~/.config
-packages=(hypr kitty fuzzel mako eww awww matugen mise tmux vim zsh gtk-3.0 gtk-4.0 scripts yazi fastfetch)
+packages=(hypr kitty fuzzel mako eww awww matugen mise tmux vim zsh gtk-3.0 gtk-4.0 scripts systemd yazi fastfetch)
 for pkg in "${packages[@]}"; do
     if [ -d "$DOTFILES/$pkg" ]; then
         stow -d "$DOTFILES" -t "$HOME" "$pkg"
@@ -48,6 +48,12 @@ mkdir -p "$HOME/Pictures/Wallpapers"
 
 # Theme placeholder
 touch "$HOME/.config/hypr/theme.lua"
+
+# Pick up the stowed systemd user units without waiting for a re-login
+if command -v systemctl &>/dev/null; then
+    systemctl --user daemon-reload
+    echo "  reloaded systemd user units"
+fi
 
 # Dark mode
 if command -v gsettings &>/dev/null; then
