@@ -47,7 +47,7 @@ done
 mkdir -p "$HOME/Pictures/Wallpapers"
 
 # Theme placeholder
-touch "$HOME/.config/hypr/theme.conf"
+touch "$HOME/.config/hypr/theme.lua"
 
 # Dark mode
 if command -v gsettings &>/dev/null; then

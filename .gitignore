@@ -3,7 +3,7 @@
 matugen/.config/matugen/generated/
 eww/.config/eww/colors.scss
 fuzzel/.config/fuzzel/colors.ini
-hypr/.config/hypr/theme.conf
+hypr/.config/hypr/theme.lua
 hypr/.config/hypr/hyprlock-theme.conf
 
 # fastfetch logo images (user-specific)
