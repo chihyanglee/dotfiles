@@ -19,7 +19,14 @@ hl.bind(
 ---------------------------
 
 hl.bind(mod .. " + Q", hl.dsp.window.close())
-hl.bind(mod .. " + SHIFT + Q", hl.dsp.exit())
+
+-- Upstream advises against a bare exit() — it drops the compositor out from
+-- under its clients. hyprshutdown asks them to quit first; fall back to exit()
+-- when it isn't installed. This is the pattern from Hyprland's own example config.
+hl.bind(
+  mod .. " + SHIFT + Q",
+  hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'")
+)
 
 hl.bind(mod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen" }))
 hl.bind(mod .. " + V", hl.dsp.window.float({ action = "toggle" }))

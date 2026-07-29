@@ -62,6 +62,32 @@ dotfiles/
     └── .zshrc                  stub that sets ZDOTDIR
 ```
 
+## Hyprland Config
+
+Hyprland is configured in **Lua**, not hyprlang — hyprlang was deprecated as the
+compositor's config format in Hyprland 0.55. `hyprland.lua` is the entry point and
+`require()`s the other modules; each `require()` is its own scope, so an error in one
+file no longer takes the rest of the config down with it.
+
+Validate edits without touching the running session:
+
+```bash
+Hyprland --verify-config -c ~/.config/hypr/hyprland.lua
+```
+
+Hyprland only decides between `hyprland.lua` and a legacy `hyprland.conf` **at startup**,
+so switching config formats needs a full re-login, not `hyprctl reload`.
+
+The rest of the Hypr ecosystem (`hyprlock`, `hypridle`) still links `libhyprlang` and
+keeps its `.conf` format — only the compositor moved to Lua.
+
+### Logout bind
+
+`Super + Shift + Q` runs `hyprshutdown` if it is installed and falls back to Hyprland's
+`exit()` otherwise. A bare `exit()` yanks the compositor out from under its clients
+instead of asking them to quit, which upstream advises against; `hyprshutdown`
+(`pacman -S hyprshutdown`, optional) prompts them to exit first.
+
 ## Theme Pipeline
 
 Changing a wallpaper regenerates the entire color scheme across all apps:
