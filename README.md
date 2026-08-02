@@ -125,7 +125,7 @@ start without it):
 systemctl --user enable hypridle hyprpolkitagent
 ```
 
-`hypridle` locks via hyprlock at 10 min and blanks the display at 15 min; it does not
+`hypridle` locks via hyprlock at 30 min and blanks the display at 35 min; it does not
 suspend. It reaches `hyprctl` because Hyprland exports `HYPRLAND_INSTANCE_SIGNATURE`
 and `WAYLAND_DISPLAY` into the systemd user environment on each login.
 
