@@ -65,6 +65,23 @@
   font-weight: 600;
 }
 
+// Battery states. .bat-normal is deliberately unstyled so the ordinary
+// discharging look is unchanged; only charging and low deviate.
+.bat-charging {
+  .sys-icon,
+  .sys-label {
+    color: $bar-ok;
+  }
+}
+
+.bat-low {
+  .sys-icon,
+  .sys-label {
+    color: $bar-warn;
+    font-weight: 700;
+  }
+}
+
 .im-label {
   font-weight: 700;
   color: $bar-accent;

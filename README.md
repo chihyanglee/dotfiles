@@ -125,6 +125,12 @@ start without it):
 systemctl --user enable hypridle hyprpolkitagent
 ```
 
+`battery-notify.timer` checks the battery every minute and warns at 20% / 10% / 5%,
+once per threshold per discharge cycle. It matters because swap here is zram, which
+is RAM-backed and cannot be hibernated to, so UPower's critical action at 2% degrades
+to a hard power off. The bar recolours to `$bar-ok` while charging and `$bar-warn`
+below 20%.
+
 `hypridle` locks via hyprlock at 30 min and blanks the display at 35 min; it does not
 suspend. It reaches `hyprctl` because Hyprland exports `HYPRLAND_INSTANCE_SIGNATURE`
 and `WAYLAND_DISPLAY` into the systemd user environment on each login.

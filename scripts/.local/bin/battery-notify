@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+# Warn before the laptop dies. Driven by battery-notify.timer (systemd package).
+#
+# Hibernate is not available on this machine — swap is zram, which is RAM-backed —
+# so UPower's critical action at 2% degrades to a hard power off. These warnings
+# are the actual protection against losing work.
+set -uo pipefail
+
+STATE="${XDG_RUNTIME_DIR:-/tmp}/battery-notify.last"
+
+cap=$(cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -n1)
+ac=$(cat /sys/class/power_supply/AC*/online 2>/dev/null | head -n1)
+
+[[ -z ${cap:-} ]] && exit 0
+
+# On AC: forget history so every threshold re-arms for the next discharge.
+if [[ ${ac:-0} == 1 ]]; then
+    rm -f "$STATE"
+    exit 0
+fi
+
+last=$(cat "$STATE" 2>/dev/null || echo 100)
+[[ $last =~ ^[0-9]+$ ]] || last=100
+
+notify() { # <urgency> <summary> <body>
+    # The synchronous hint makes mako replace the previous battery popup
+    # instead of stacking one per threshold.
+    notify-send -u "$1" -a battery \
+        -h "string:x-canonical-private-synchronous:battery" \
+        "$2" "$3"
+}
+
+# Fire only when crossing downward, so a tick every minute at the same level does
+# not re-notify. Lowest matching threshold wins if several are crossed at once.
+if (( cap <= 5 && last > 5 )); then
+    notify critical "Battery ${cap}%" "About to power off. Save your work now."
+elif (( cap <= 10 && last > 10 )); then
+    notify critical "Battery ${cap}%" "Plug in now."
+elif (( cap <= 20 && last > 20 )); then
+    notify normal "Battery ${cap}%" "Plug in soon."
+fi
+
+printf '%s' "$cap" >"$STATE"
