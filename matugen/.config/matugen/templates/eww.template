@@ -4,5 +4,4 @@ $bar-border: {{ colors.primary.default.hex }};
 $bar-accent: {{ colors.primary.default.hex }};
 $bar-accent-fg: {{ colors.on_primary.default.hex }};
 $bar-dim: {{ colors.on_surface_variant.default.hex }};
-$bar-warn: {{ colors.error.default.hex }};
 $bar-ok: {{ colors.tertiary.default.hex }};

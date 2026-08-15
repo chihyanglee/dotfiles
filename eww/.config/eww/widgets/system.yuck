@@ -67,8 +67,11 @@
   (box :spacing 2
        :class {ac-status == "ON"
                  ? "battery-box bat-charging"
-                 : (battery-level < 20 ? "battery-box bat-low" : "battery-box bat-normal")}
-    (label :class "sys-icon" :text {ac-status == "ON" ? "󰂄" : (battery-level < 20 ? "󰁻" : "󰁹")})
+                 : (battery-level < 20 ? "battery-box bat-low"
+                    : (battery-level < 50 ? "battery-box bat-mid" : "battery-box bat-good"))}
+    ;; Plug glyph while on AC, so charging is distinguishable at a glance and not
+    ;; just another battery outline.
+    (label :class "sys-icon" :text {ac-status == "ON" ? "󰚥" : (battery-level < 20 ? "󰁻" : "󰁹")})
     (label :class "sys-label" :text "${battery-level}%")))
 
 (defwidget volume-widget []

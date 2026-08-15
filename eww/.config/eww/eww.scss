@@ -65,8 +65,16 @@
   font-weight: 600;
 }
 
-// Battery states. .bat-normal is deliberately unstyled so the ordinary
-// discharging look is unchanged; only charging and low deviate.
+// Battery states.
+//
+// The charge scale is intentionally NOT matugen-derived. That palette is built
+// from the wallpaper, so it cannot promise a green or a yellow — and a charge
+// warning only reads if red is actually red. Fixed semantic hues here; charging
+// still follows the theme, since "on AC" carries no urgency.
+$bat-good: #a6da95; // >= 50%
+$bat-mid: #eed49f; // 20-49%
+$bat-crit: #ed8796; // < 20%
+
 .bat-charging {
   .sys-icon,
   .sys-label {
@@ -74,10 +82,24 @@
   }
 }
 
+.bat-good {
+  .sys-icon,
+  .sys-label {
+    color: $bat-good;
+  }
+}
+
+.bat-mid {
+  .sys-icon,
+  .sys-label {
+    color: $bat-mid;
+  }
+}
+
 .bat-low {
   .sys-icon,
   .sys-label {
-    color: $bar-warn;
+    color: $bat-crit;
     font-weight: 700;
   }
 }
