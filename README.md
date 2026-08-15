@@ -128,10 +128,11 @@ systemctl --user enable hypridle hyprpolkitagent
 `battery-notify.timer` checks the battery every minute and warns at 20% / 10% / 5%,
 once per threshold per discharge cycle. It matters because swap here is zram, which
 is RAM-backed and cannot be hibernated to, so UPower's critical action at 2% degrades
-to a hard power off. The bar shows a plug glyph and `$bar-ok` while charging; when
-discharging it steps green / yellow / red at 50% and 20%. Those three are fixed hues
-in `eww.scss`, not matugen output — a wallpaper-derived palette cannot guarantee a
-green or a yellow, and the warning only reads if red is actually red.
+to a hard power off. In the bar, colour tracks charge level only — green from 50%,
+yellow from 20%, red below — so a reading means the same on AC or off it; a plug
+glyph signals AC instead. Those three hues are fixed in `eww.scss`, not matugen
+output: a wallpaper-derived palette cannot guarantee a green or a yellow, and the
+warning only reads if red is actually red.
 
 `hypridle` locks via hyprlock at 30 min and blanks the display at 35 min; it does not
 suspend. It reaches `hyprctl` because Hyprland exports `HYPRLAND_INSTANCE_SIGNATURE`

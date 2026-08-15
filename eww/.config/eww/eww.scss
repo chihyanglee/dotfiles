@@ -67,20 +67,15 @@
 
 // Battery states.
 //
-// The charge scale is intentionally NOT matugen-derived. That palette is built
-// from the wallpaper, so it cannot promise a green or a yellow — and a charge
-// warning only reads if red is actually red. Fixed semantic hues here; charging
-// still follows the theme, since "on AC" carries no urgency.
+// Colour encodes charge level and nothing else, so the reading is the same
+// whether or not AC is connected; the plug glyph carries that instead.
+//
+// Intentionally NOT matugen-derived: that palette is built from the wallpaper,
+// so it cannot promise a green or a yellow, and the warning only reads if red
+// is actually red.
 $bat-good: #a6da95; // >= 50%
 $bat-mid: #eed49f; // 20-49%
 $bat-crit: #ed8796; // < 20%
-
-.bat-charging {
-  .sys-icon,
-  .sys-label {
-    color: $bar-ok;
-  }
-}
 
 .bat-good {
   .sys-icon,

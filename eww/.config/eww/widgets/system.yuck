@@ -64,11 +64,11 @@
 ;; Class goes on the box so both the icon and the label recolour together,
 ;; instead of repeating the ternary on each child.
 (defwidget battery-widget []
+  ;; Colour tracks charge level only, on AC or not — 89% should look like 89%.
+  ;; The plug glyph below is what signals AC.
   (box :spacing 2
-       :class {ac-status == "ON"
-                 ? "battery-box bat-charging"
-                 : (battery-level < 20 ? "battery-box bat-low"
-                    : (battery-level < 50 ? "battery-box bat-mid" : "battery-box bat-good"))}
+       :class {battery-level < 20 ? "battery-box bat-low"
+                : (battery-level < 50 ? "battery-box bat-mid" : "battery-box bat-good")}
     ;; Plug glyph while on AC, so charging is distinguishable at a glance and not
     ;; just another battery outline.
     (label :class "sys-icon" :text {ac-status == "ON" ? "󰚥" : (battery-level < 20 ? "󰁻" : "󰁹")})
