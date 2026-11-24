@@ -8,9 +8,6 @@
 (defpoll clock-day :interval "60s"
   "~/.config/eww/scripts/day.sh")
 
-(defpoll cpu-usage :interval "3s"
-  "~/.config/eww/scripts/cpu.sh")
-
 (defpoll cpu-temp :interval "5s"
   "~/.config/eww/scripts/temperature.sh")
 
@@ -44,7 +41,7 @@
 (defwidget cpu-widget []
   (box :spacing 2
     (label :class "sys-icon" :text "󰻠")
-    (label :class "sys-label" :text cpu-usage)))
+    (label :class "sys-label" :text "${round(EWW_CPU.avg, 0)}%")))
 
 (defwidget temp-widget []
   (box :spacing 2
