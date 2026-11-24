@@ -10,6 +10,9 @@ hypr/.config/hypr/hyprlock-theme.conf
 fastfetch/.config/fastfetch/logos/*
 !fastfetch/.config/fastfetch/logos/.gitignore
 
+# backups
+*.bak
+
 # caches
 **/.cache/
 **/.zcompdump*

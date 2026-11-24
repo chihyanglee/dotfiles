@@ -29,9 +29,8 @@ hyprctl reload
 # Reload Kitty colors (Kitty doesn't auto-reload included files)
 pkill -USR1 kitty || true
 
-pkill eww || true
-eww daemon
-eww open bar
+# colors.scss changed; the daemon only needs to re-read its config
+eww reload || true
 
 echo "Applied wallpaper and regenerated theme:"
 echo "$WALLPAPER"

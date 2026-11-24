@@ -25,6 +25,9 @@ dotfiles/
 To add a new config package: `mkdir -p <name>/.config/<name>`, add files, then `stow <name>`.
 To add a user script: place it in `scripts/.local/bin/`, then `stow scripts`.
 To remove a package: `stow -D <name>`.
+New packages must also be added to the `packages` list in `setup.sh`.
+
+`README.md` is the human-facing doc (install steps, package lists, session/systemd background). Don't duplicate it here — this file holds only what an agent needs to edit safely.
 
 ### Desktop Stack
 - **Hyprland** — Wayland compositor (`hypr/.config/hypr/`)
@@ -36,6 +39,13 @@ To remove a package: `stow -D <name>`.
 - **Mako** — notification daemon (`mako/.config/mako/`)
 - **Awww + Matugen** — wallpaper setter + color generation (`awww/.config/awww/`, `matugen/.config/matugen/`)
 - **Fastfetch** — system info display (`fastfetch/.config/fastfetch/`)
+- **hypridle + hyprlock** — idle/lock (`hypr/.config/hypr/hypridle.conf`, `hyprlock.conf`)
+- **Neovim (LazyVim)** — editor (`nvim/.config/nvim/`); `vim/` is a minimal fallback
+- **Yazi** — file manager, also the wallpaper picker (`yazi/.config/yazi/`)
+- **Ghostty** — secondary terminal (`ghostty/.config/ghostty/`)
+- **mise** — runtime/tool versions (`mise/.config/mise/`)
+- **fcitx5** — input method (Rime, Mozc); configured outside the repo
+- **greetd + tuigreet** — login greeter; configured in `/etc/greetd/`, outside the repo
 
 ### CLI Replacements
 Shell aliases in `zsh/.config/zsh/aliases.zsh` map standard commands to modern alternatives:
@@ -106,8 +116,6 @@ tmux source-file ~/.config/tmux/tmux.conf
 
 ## Key Rules
 
-- When adding a new app config, create `<app>/.config/<app>/`, add files, then run `stow <app>`.
-- User scripts go in `scripts/.local/bin/` and are stowed to `~/.local/bin/` (already in PATH via `.zshrc`).
 - Generated theme files should not be hand-edited — modify the Matugen template in `matugen/.config/matugen/templates/` instead.
 - The session is launched by `start-hyprland`, not uwsm. `hyprland-session.target` (stowed from the `systemd` package, started/stopped by `autostart.lua`) is what activates `graphical-session.target` — without it, `systemctl --user enable` on any Hypr ecosystem service silently never starts. Keep env vars in `env.lua`, not `~/.config/uwsm/env`.
 - Hyprland is configured in **Lua** (`hl.*` API), not hyprlang — hyprlang was deprecated in Hyprland 0.55. Always validate edits with `Hyprland --verify-config` before relying on them; it catches unknown config keys, bad dispatchers and bad rule fields, but *not* unknown `hl.bind` flags. `hyprlock` and `hypridle` are separate programs and still use hyprlang `.conf`. Note `hyprctl dispatch` also takes Lua now — `hyprctl dispatch dpms off` fails, use `hyprctl dispatch 'hl.dsp.dpms({ action = "off" })'`; this matters for anything shelling out to hyprctl, e.g. `hypridle.conf` and EWW `:onclick` handlers.

@@ -1,5 +1,5 @@
 ;; Polls
-(defpoll clock-time :interval "1s"
+(defpoll clock-time :interval "5s"
   "date '+%H:%M'")
 
 (defpoll clock-date :interval "60s"

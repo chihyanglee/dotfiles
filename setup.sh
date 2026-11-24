@@ -14,7 +14,7 @@ fi
 
 # Stow all packages
 mkdir -p ~/.config
-packages=(hypr kitty fuzzel mako eww awww matugen mise tmux vim zsh gtk-3.0 gtk-4.0 scripts systemd yazi fastfetch)
+packages=(hypr kitty fuzzel mako eww awww matugen mise tmux vim nvim ghostty zsh gtk-3.0 gtk-4.0 scripts systemd yazi fastfetch)
 for pkg in "${packages[@]}"; do
     if [ -d "$DOTFILES/$pkg" ]; then
         stow -d "$DOTFILES" -t "$HOME" "$pkg"

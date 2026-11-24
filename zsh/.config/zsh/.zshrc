@@ -3,7 +3,6 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
     source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export ZDOTDIR="$HOME/.config/zsh"
 export PATH="$HOME/.local/bin:$PATH"
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -12,7 +11,6 @@ export VISUAL="nvim"
 setopt no_beep
 
 # Completion
-autoload -Uz compinit && compinit
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}' 'r:|=*' 'l:|=* r:|=*'
 
 # History (XDG-ish)
@@ -30,6 +28,9 @@ if [[ ! -d "$ZINIT_HOME" ]]; then
 fi
 source "${ZINIT_HOME}/zinit.zsh"
 
+# After zinit, which adds its completions dir to fpath
+autoload -Uz compinit && compinit
+
 # Load keybinds (Home/End/Delete etc. via terminfo)
 [[ -f "$ZDOTDIR/keybinds.zsh" ]] && source "$ZDOTDIR/keybinds.zsh"
 
@@ -43,4 +44,7 @@ source "${ZINIT_HOME}/zinit.zsh"
 [[ -f "$ZDOTDIR/p10k.zsh" ]] && source "$ZDOTDIR/p10k.zsh"
 
 # opencode
-export PATH=/home/cyl/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
+
+# rootless podman as docker daemon (see dharmar docs/local-db.md)
+export DOCKER_HOST="unix:///run/user/$UID/podman/podman.sock"

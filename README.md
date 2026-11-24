@@ -54,7 +54,7 @@ dotfiles/
 ├── gtk-3.0/.config/gtk-3.0/    GTK 3 settings
 ├── gtk-4.0/.config/gtk-4.0/    GTK 4 settings
 ├── mise/.config/mise/          dev tool versions
-├── scripts/.local/bin/         user scripts (dark mode, tmux-launch, etc.)
+├── scripts/.local/bin/         user scripts (dark mode, battery-notify, etc.)
 ├── systemd/.config/systemd/user/  hyprland-session.target
 ├── tmux/.config/tmux/          terminal multiplexer
 ├── fastfetch/.config/fastfetch/ system info (config + logos/)
