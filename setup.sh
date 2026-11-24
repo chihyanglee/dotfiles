@@ -3,7 +3,6 @@
 set -euo pipefail
 
 DOTFILES="$(cd "$(dirname "$0")" && pwd)"
-ZSH_PLUGIN_DIR="$HOME/.local/share/zsh"
 
 echo "Setting up dotfiles from $DOTFILES"
 
@@ -22,24 +21,6 @@ for pkg in "${packages[@]}"; do
         echo "  stowed $pkg"
     else
         echo "  skipped $pkg (not found)"
-    fi
-done
-
-# Zsh plugins
-mkdir -p "$ZSH_PLUGIN_DIR"
-plugins=(
-    "romkatv/powerlevel10k"
-    "zsh-users/zsh-autosuggestions"
-    "zsh-users/zsh-syntax-highlighting"
-)
-for plugin in "${plugins[@]}"; do
-    name="${plugin##*/}"
-    dest="$ZSH_PLUGIN_DIR/$name"
-    if [ -d "$dest" ]; then
-        echo "  $name already installed"
-    else
-        git clone --depth=1 "https://github.com/$plugin.git" "$dest"
-        echo "  installed $name"
     fi
 done
 

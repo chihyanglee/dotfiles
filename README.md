@@ -232,16 +232,7 @@ Or stow individual packages:
 stow hypr kitty zsh eww  # etc.
 ```
 
-### 3. Zsh plugins (outside the repo)
-
-```bash
-mkdir -p ~/.local/share/zsh
-git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/.local/share/zsh/powerlevel10k
-git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions ~/.local/share/zsh/zsh-autosuggestions
-git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting ~/.local/share/zsh/zsh-syntax-highlighting
-```
-
-### 4. First run
+### 3. First run
 
 ```bash
 mkdir -p ~/Pictures/Wallpapers
